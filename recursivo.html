@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function printingByOne(y) {
+    let x = y
+
+    if (x > 100)
+    return console.log('error')
+
+    else if (x == 100)
+    return console.log(x)
+
+    else
+    console.log(x)
+    printingByOne(x+1)
+}
+
+function printingByTwo(y) {
+    let x = y
+
+    if (x < 500)
+    return console.log('error')
+
+    else if (x == 500)
+    return console.log(x)
+
+    else
+    console.log(x)
+    console.log(x-2)
+    printingByTwo(x-1)
+}
+
+const promedio = (...notas) => {
+    const suma = notas.reduce((acc, curr) => {
+        return acc + curr
+    }, 0)
+    return suma / notas.length
+}
+
+console.log(promedio(6,7,8,9,10))
+//printingByOne(1)
+//printingByTwo(100)
+
+    </script>
+</body>
+</html>
+
+
+
