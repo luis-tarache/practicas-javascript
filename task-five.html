@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        const fibonacci = function (result, length) {
+            let num1 = result[0]
+            let num2 = result[1]
+            
+            while (result.length < length) {
+                next = num1 + num2
+                num1 = num2
+                num2 = next
+                result.push(next)
+            }
+
+            return result
+        }
+
+        // EJERCICIO FIBONACCI DE 0 A 1000
+
+        console.log('fibonacci base: ', fibonacci([0,1], 1000))
+
+
+        // EJERCICIO FIBONACCI NUMEROS PARES
+
+        const filterByEven = fibonacci([0,1], 1000).filter(num => num % 2 == 0)
+        console.log('fibonacci numeros pares: ', filterByEven)
+
+        // EJERCICIO FIBONACCI NUMEROS INPARES
+
+        const filterByOdd = fibonacci([0,1], 1000).filter(num => num % 2 != 0)
+        console.log('fibonacci numeros impares: ', filterByOdd)
+
+        //EJERCICIO ARREGLO DE STRING A MAYUSCULA
+
+        const pokemones = ['Picachu', 'Charmander', 'Bulbasaur', 'Squirtle']
+        console.log(pokemones.map(pokemon => pokemon.toUpperCase()))
+
+        //EJERCICIO ARREGLO DE OBJETOS TIPO FUEGO
+
+        const pokemonesObj = [
+            {
+                nombre: 'Picachu',
+                tipo: 'Electrico'
+            },
+            {
+                nombre: 'Charmander',
+                tipo: 'Fuego'
+            },
+            {
+                nombre: 'Bulbasur',
+                tipo: 'Planta'
+            },
+            {
+                nombre: 'Squirtle',
+                tipo: 'Agua'
+            },
+            {
+                nombre: 'Charmeleon',
+                tipo: 'Fuego'
+            },
+            {
+                nombre: 'Weedle',
+                tipo: 'Bicho'
+            },
+            {
+                nombre: 'Charizard',
+                tipo: 'Fuego'
+            }
+        ]
+
+        console.log(pokemonesObj.filter(pokemon => pokemon.tipo == 'Fuego'))
+        
+
+        
+    </script>
+</body>
+</html>
