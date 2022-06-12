@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        //FUNCTION STORED IN A VARIABLE
+        const functionVar = function() {
+            console.log('function stored in a variable')
+        }
+        functionVar()
+
+        //FUNCTION STORED IN AN ARRAY
+        const functionArray = [
+            28, 
+            function() {console.log('function stored in an array')}
+        ]
+        functionArray[1]()
+
+        //FUNCTION STORED IN AN OBJECT
+        const functionObj = {
+            num: 28,
+            functionObject: function(){
+                console.log('function stored in an object')
+            }
+        }
+        functionObj.functionObject()
+
+        //IMMEDIATELY INVOKED FUNCTION
+        console.log('getting the result by an immediately invoked function:', 28 + (function(){return 10})())
+
+        //PASSING A FUNCTION TO A FUNCTION
+        const addTwo = function(num, fn){
+            console.log('getting result by passing a function to a function:',num + fn())
+        }
+        const returnNum = function(){return 28}
+        addTwo(28, returnNum)
+
+        //RETURNING A FUNCTION
+        const returnFunction = function() {
+            return function() {console.log('returning a function')}
+        }
+        const storedFunction = returnFunction()
+        storedFunction()
+    </script>
+</body>
+</html>
