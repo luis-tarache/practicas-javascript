@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #item1 {
+            padding: 2em;
+            border: none;
+            background-color: red;
+            color: aliceblue;
+            border-radius: 10%;
+        }
+    </style>
+</head>
+<body>
+
+    <button id="item1">Click me!</button>
+
+    <script>
+
+        //PASSING A FUNCTION AS A CALLBACK
+        const logCall = function(){
+            console.log('logCall was called back')
+        }
+        setTimeout(logCall, 3000)
+
+        //DEFINING A FUNCTION AS A CALLBACK
+        setTimeout(function () {
+            console.log('defining a function as a callback')
+        }, 2000)
+
+        //CALLBACKS AND EVENTS
+        const btn = document.querySelector('#item1')
+        btn.addEventListener('click', function(){
+            console.log('the button was clicked')
+        })
+
+        //CALLBACKS TO HANDLE DATA
+        const students = [
+            {name: 'Maria', score:90, school:'East'},
+            {name: 'Juan', score:100, school:'East'},
+            {name: 'Esteban', score:40, school:'East'},
+            {name: 'Gaby', score:90, school:'West'},
+            {name: 'Raquel', score:85, school:'East'},
+            {name: 'Romel', score:95, school:'West'},
+            {name: 'Lilian', score:75, school:'East'}
+        ]
+
+        const passingGradeStundents = function (data, callback) {
+            for (let i = 0; i < data.length; i++) {
+                if (data[i].school.toLowerCase() === 'east'){
+                    if (typeof callback === 'function'){
+                        callback(data[i])
+                    }
+                }
+                
+            }        
+        }
+
+        passingGradeStundents(students, function(arrObj){
+            if(arrObj.score > 60){
+                console.log('first example', arrObj.name + ' passed')
+            }
+        })
+
+        studentTotalScore = function(){
+            let total=0,
+                count=0
+
+                passingGradeStundents(students, function(arrObj){
+                    total=total + arrObj.score
+                    count++
+                })
+
+                console.log('total score: ' + total + ' - total students: ' + count)
+        }
+
+        studentTotalScore()
+
+    </script>
+</body>
+</html>
