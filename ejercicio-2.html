@@ -13,8 +13,10 @@
 
         function helloWorld(){
             this.name= 'world'
+
                 //VAR WITHOUT KEYWORD BECOMES A GLOBAL VARIABLE
                 unknown= '!'
+
                 //LOCAL VARIABLE CANNOT BE USED OR CALLED GLOBALLY
                 let test = '?'
                 console.log(greeting + '' + this.name + unknown)
@@ -23,6 +25,7 @@
         console.log(greeting)
         console.log(name)
         helloWorld()
+        
         //TO BECOME A GLOBAL VARIABLE FIRST WE HAVE TO CALL helloWorld()
         console.log(unknown)
         console.log(test)
