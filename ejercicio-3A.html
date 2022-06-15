@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        article{
+            margin: auto;
+            border: 1px solid black;
+            text-align: center;
+            max-width: 50%;
+        }
+
+    </style>
+</head>
+<body>
+    <article>
+        <h2 class="title">EVENT REPORTER</h2>
+        <div id="reporter-one"></div>
+    </article>
+    <script>
+
+        //AVOIDING GLOBAL VARIABLES EXAMPLE ONE
+        (function (){
+        let content = document.querySelector('#reporter-one'),
+                listeners = [],
+                listenersEnabled = false,
+                pirntIt = true,
+                lastEvent
+
+        //shows info to the div and includes event object info
+        const loadInfo= function(msg, eventObj){
+            content.insertAdjacentHTML('afterbegin', msg + ' -- event type: ' +
+            eventObj.type + 'target object: ' + eventObj.target.nodeName + '<br>')
+        }
+
+        //adds listeners to the document
+        const addListeners= function(){
+            const keyDownHandler= function(e){
+                loadInfo('a key was pressed: ' + e.keyCode + ' -- ' + e.key, e)
+                if (e.keyCode === 13){
+                    toggleEventListeners()
+                }
+            }
+
+            document.addEventListener('keydown', keyDownHandler)
+            listeners.push(keyDownHandler, 'keydown')
+            console.log(listeners)
+
+            const mouseMoveHandler = function(e){
+                lastEvent = e
+                if(pirntIt){
+                    pirntIt= false
+                    loadInfo('mouse move recorded at coordinates: ' + 
+                    e.pageX + ', ' + e.pageY, e)
+
+                    setTimeout(function(){
+                        pirntIt= true
+                    }, 500)
+                }
+            }
+
+            document.addEventListener('mousemove', mouseMoveHandler)
+            listeners.push(mouseMoveHandler, 'mousemove')
+            console.log(listeners)
+
+            //once listeners are added sets this to true for toggle function
+            listenersEnabled= true
+        }
+
+        //removes listeners from document so user can examine data
+        const removeListeners= function(){
+            while (listeners){
+                document.removeEventListener(listeners.pop(), listeners.pop())
+            }
+        }
+
+        const toggleEventListeners = function(){
+            if(listenersEnabled){
+                removeListeners()
+                console.log('event listeners removed')
+            } else{
+                addListeners()
+                console.log('listeners added')
+            }
+        }
+
+        toggleEventListeners()
+    }())
+
+        //init()
+        //sets up listener
+        //console.log(init)
+        //console.log(content)
+        //console.log(listeners)
+        //console.log(listenersEnabled)
+        //console.log(pirntIt)
+        //console.log(lastEvent)
+        //console.log(addListeners)
+
+    </script>
+</body>
+</html>
