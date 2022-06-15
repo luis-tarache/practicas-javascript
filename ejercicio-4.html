@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let a= 10
+        console.log('global scope holds variable a:', a);
+
+        const add5= function(num){
+            let b=5
+            console.log('add5 scope num+b: ', num+b)
+
+            const add10= function(num2){
+               return 'add10 scope num2+b: ' + (num2+b)
+            }
+
+            const add15= function(num3){
+                console.log('called from add15 scope!!!', add10(num))
+                //this will throw an error because tries to use c from add20 scope 
+                console.log('add15 scope num3+c: ', num3+c)                
+            }
+            
+            add10(num)
+
+            //add20 will not run because add15 will throw an error
+            const add20= function(num4){
+                let c = 5
+                console.log('add20 scope num4+c: ', num4+c)
+            }
+
+            add15(num)
+        }
+
+        add5(3)
+    </script>
+</body>
+</html>
