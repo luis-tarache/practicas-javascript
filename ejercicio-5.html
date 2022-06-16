@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //using var hoist x variable 
+        const fun1 = function(){
+            console.log('fun1: ', x)
+        }
+
+        fun1()
+        var x = 10
+
+        //using var functional scope 
+        const fun3 = function(){
+            for (var i = 1; i<5; i++){
+                console.log('var i block scope: ', i)
+            }
+
+            console.log('var i functional scope: ', i)
+        }
+
+        fun3()
+
+        //using let block scope
+        const fun4 = function(){
+            for (let i = 1; i<5; i++){
+                console.log('let i block scope: ', i)
+            }
+
+            console.log('let i functional scope: ', i)
+        }
+
+        fun4()
+
+        //using let does not hoist z variable
+        const fun2 = function(){
+            console.log('fun2: ', z)            
+        }
+
+        fun2()
+        let z = 10
+
+    </script>
+</body>
+</html>
