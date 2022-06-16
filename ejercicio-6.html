@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        button {
+            background-color: red;
+            border: none;
+            border-radius: 10%;
+            color: aliceblue;
+            padding: 2rem;
+            margin: 2rem auto;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <button id="item1">CLICK HERE</button>
+    <button id="item2">CLICK ME</button>
+
+    <script>
+
+        //closure example
+        const APP = (function(){
+
+            const a = 3
+
+            const printIt = function(val1, val2){
+                console.log(val1, val2)
+            }
+
+            const sumIt = function(val){
+                printIt('from sumIt: ', a + val)
+            }
+
+            const multiplyIt = function(val){
+                printIt('from multiplyIt: ', a * val)
+            }
+
+            return {
+                sumIt: sumIt,
+                multiplyIt: multiplyIt
+            }
+        }())
+
+        APP.sumIt(5)
+        APP.multiplyIt(5)
+
+        //closure example
+        const counter = function(){
+            let cnt = 0,
+                btn1 = document.querySelector('#item1')
+                btn2 = document.querySelector('#item2')
+
+                const print = function(msg){
+                    console.log(msg, cnt)
+                }
+
+                btn1.addEventListener('click', function(){
+                    cnt++
+                    msg = 'from btn1: '
+                    print(msg)
+                })
+
+                btn2.addEventListener('click', function(){
+                    cnt++
+                    msg = 'from btn2: '
+                    print(msg)
+                })
+        }
+
+        counter()
+
+        //closure example
+        const funClosure = function(){
+            let a = 2, 
+                b = 3
+
+                const fun2 = function(){
+                    console.log('from funClosure: ', a+b)
+                }
+
+                setTimeout(fun2, 1000)
+        }
+
+        funClosure()
+
+        //functional scope
+        const functionalScope = function(){
+            let a = 2, 
+                b = 3
+
+                const fun2 = function(){
+                    console.log('from functionalScope: ', a+b)
+                }
+
+                fun2()
+        }
+
+        //this function does not have access to fun scope variables a & b
+        //this function will throw an error
+        const fun3 = function(){
+            console.log(a+b)
+        }
+
+        functionalScope()
+        fun3()
+
+    </script>
+</body>
+</html>
