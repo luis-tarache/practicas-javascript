@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+
+        body{
+            background-color: #EFEFBB;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            margin: 0;
+        }
+        h1{
+            letter-spacing: 3px;
+            color: dimgrey;
+        }
+
+        .poke-container {
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .pokemon-card {
+            background-color: #eee;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            margin: 10px;
+            box-shadow: 0 3px 15px rgba(100, 100, 100, 0.5);
+            min-width: 210px;
+        }
+
+        .pokemon-card .img-container {
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.6);
+            height: 150px;
+            width: 150px;
+            margin: auto;
+        }
+
+        .pokemon-card .img-container img {
+            margin-top: 20px;
+            max-width: 80%;
+            max-height: 80%;
+            
+            
+        }
+
+        .pokemon-card .name {
+            margin: 15px 0 7px;
+            color: dimgrey;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Feching Pokemons from an API</h1>
+    <div id="poke_container" class="poke-container"></div>
+
+    <script>
+        const pokeContainer = 
+        document.getElementById('poke_container')
+        const pokemonsLength = 20
+        const pokemonColors = {
+            fire: '#fddfdf',
+            grass: '#defde0', 
+            electric: '#fcf7de', 
+            water: '#def3fd', 
+            ground: '#f4e7da', 
+            rock: '#d5d5d4', 
+            fairy: '#fceaff', 
+            poison: '#98d7a5', 
+            bug: '#f8d5a3', 
+            dragon: '#97b3a6', 
+            psychic: '#eaeda1', 
+            flying: '#f5f5f5',
+            fighting: '#E8FFC2', 
+            normal: '#DFF6FF'
+        }
+
+        const colorTypes = Object.keys(pokemonColors)
+
+        const fetchPokemons = async () => {
+            for(let i = 1; i<=pokemonsLength; i++)
+            await getPokemon(i)
+        }
+
+        const getPokemon = async id => {
+            try{
+            const url = `https://pokeapi.co/api/v2/pokemon/${id}`
+            const req = await fetch(url)
+            const pokemon = await req.json()
+            createPokemonCard(pokemon)
+            }catch(err){
+                console.log(err)
+            }
+        }
+
+        function createPokemonCard(pokemon) {
+            const pokemonCard = document.createElement('div')
+            pokemonCard.classList.add('pokemon-card')
+            const pokemonTypes = pokemon.types.map(pokemonType => pokemonType.type.name)
+            const pokemonColorType = colorTypes.find(
+                colorType => pokemonTypes[0].indexOf(colorType) > -1
+            )
+
+            const cardColor = pokemonColors[pokemonColorType]
+
+            pokemonCard.style.backgroundColor = cardColor
+
+            const pokemonNameToUpperCase = pokemon.name[0].toUpperCase() + pokemon.name.slice(1)
+
+            pokemonInnerHTML = `
+                <div class = 'img-container'>
+                    <img src = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${pokemon.id}.svg"/>
+                </div>
+                <div class = "info">
+                    <h2 class = "name">${pokemonNameToUpperCase}</h2>
+                </div>
+            `
+
+            pokemonCard.innerHTML = pokemonInnerHTML
+
+            pokeContainer.appendChild(pokemonCard)
+        }
+
+        fetchPokemons()
+        
+    </script>
+</body>
+</html>
