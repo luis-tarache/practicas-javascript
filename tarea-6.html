@@ -94,8 +94,12 @@
         const colorTypes = Object.keys(pokemonColors)
 
         const fetchPokemons = async () => {
+            try{
             for(let i = 1; i<=pokemonsLength; i++)
             await getPokemon(i)
+            }catch(err){
+                console.log('error from fetchPokemons', err)
+            }
         }
 
         const getPokemon = async id => {
@@ -105,7 +109,7 @@
             const pokemon = await req.json()
             createPokemonCard(pokemon)
             }catch(err){
-                console.log(err)
+                console.log('error from getPokemon', err)
             }
         }
 
