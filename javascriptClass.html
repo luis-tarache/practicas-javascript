@@ -13,7 +13,58 @@
     <main></main>
 
     <script>
-        class Movie {}
+        class Movie {
+
+            static #count = 0
+            #characters
+            static getTotalMovies(){
+                return Movie.#count
+            }
+
+            #ref =''
+            #date
+
+            constructor(film){
+                if(
+                    !film.title ||
+                    !film.url ||
+                    !film.director ||
+                    !film.release_date ||
+                    !film.episode_id ||
+                    !film.characters
+                ) {
+                    throw new Error('Missing required movie info')
+                }
+
+                this.title = film.title
+                this.url = film.url
+                this.director = film.director
+                this.episode_id = film.episode_id
+                this.#characters = film.characters
+                this.#date= new Date(film.release_date)
+                //this.year= this.#date.getFullYear()
+                Movie.#count++
+                this.#ref= Movie.#count
+            }
+
+            get id(){
+                return this.#ref
+            }
+
+            set id(val){
+                console.log('this cannot be changed')
+                return false
+            }
+
+            getYear(){
+                return this.#date.getFullYear()
+            }
+
+            getRandomChar(){
+                let i= Math.floor(Math.random()*this.#characters.length)
+                return this.#characters[i]
+            }
+        }
 
         let theMovies = []
 
@@ -27,7 +78,8 @@
             })
             .then(data => {
                 console.log(data)
-                theMovies = data.results
+                //theMovies = data.results
+                theMovies= data.results.map(film => new Movie(film))
                 buildList()
             })
             .catch(err => {
@@ -37,13 +89,14 @@
 
         function buildList() {
             let title = document.querySelector('nav>h2')
+            title.innerHTML = `${Movie.getTotalMovies()} Star Wars Movies`
             let main = document.querySelector('main')
             main.innerHTML = theMovies.map(m => {
                 return `
-                <div class="movie" data-ref="" data-episode="${m.episode_id}">
-                    <h2>Star Wars: ${m.title} (YEAR)</h2>
+                <div class="movie" data-ref="${m.id}" data-episode="${m.episode_id}">
+                    <h2>Star Wars: ${m.title} (${m.getYear()})</h2>
                     <p>Directed by: ${m.director}</p>
-                    <p>Random character: <span class="char"> CHAR </span></p>
+                    <p>Random character: <span class="char"> ${m.getRandomChar()} </span></p>
                     <p><a href="${m.url}" target="_blank">More Info</a></p>
                 `
             })
