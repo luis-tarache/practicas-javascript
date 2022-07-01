@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <nav>
+        <h2>Title</h2>
+    </nav>
+    <main></main>
+
+    <script>
+        class Movie {}
+
+        let theMovies = []
+
+        document.addEventListener('DOMContentLoaded', init)
+
+        function init(){
+            fetch('https://swapi.dev/api/films')
+            .then(resp => {
+                if(!resp.ok) throw new Error(resp.statusText)
+                return resp.json()
+            })
+            .then(data => {
+                console.log(data)
+                theMovies = data.results
+                buildList()
+            })
+            .catch(err => {
+                console.log(err)
+            })
+        }
+
+        function buildList() {
+            let title = document.querySelector('nav>h2')
+            let main = document.querySelector('main')
+            main.innerHTML = theMovies.map(m => {
+                return `
+                <div class="movie" data-ref="" data-episode="${m.episode_id}">
+                    <h2>Star Wars: ${m.title} (YEAR)</h2>
+                    <p>Directed by: ${m.director}</p>
+                    <p>Random character: <span class="char"> CHAR </span></p>
+                    <p><a href="${m.url}" target="_blank">More Info</a></p>
+                `
+            })
+            .join('')
+        }
+    </script>
+</body>
+</html>
