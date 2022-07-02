@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+
+        body{
+            background-color: #EFEFBB;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            margin: 0;
+        }
+        h1{
+            letter-spacing: 3px;
+            color: dimgrey;
+        }
+
+        .poke-container {
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 1500px;
+            margin: 0 auto;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .pokemon-card {
+            background-color: #eee;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            margin: 10px;
+            box-shadow: 0 3px 15px rgba(100, 100, 100, 0.5);
+            min-width: 400px;
+        }
+
+        .pokemon-card .img-container {
+            height: 250px;
+            width: 250px;
+            margin: auto;
+        }
+
+        .pokemon-card .img-container img {
+            margin-top: 20px;
+            max-width: 80%;
+            max-height: 80%;
+            
+            
+        }
+
+        .pokemon-card .name {
+            margin: 15px 0 7px;
+            color: dimgrey;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Fetching Rick & Morty from an API</h1>
+    <div id="poke_container" class="poke-container"></div>
+
+    <script>
+
+    class RickAndMorty {
+
+        static pokeContainer = document.getElementById('poke_container')
+
+        _name;
+        _species;
+        _image;
+
+
+        constructor(character){
+            if(
+                    !character.name ||
+                    !character.species ||
+                    !character.image 
+                ) {
+                    throw new Error('Missing required character info')
+                }
+
+                this._name = character.name
+                this._species = character.species
+                this._image = character.image
+                this.id = character.id
+        }
+
+        get name(){
+            return this._name 
+        }
+
+        get species(){
+            return this._species            
+        }
+
+        get img(){
+            return this._image
+        }
+
+        show(){
+            const pokemonCard = document.createElement('div')
+            pokemonCard.classList.add('pokemon-card')
+
+            pokemonCard.style.backgroundColor = '#defde0' 
+
+            const pokemonNameToUpperCase = this.name[0].toUpperCase() + this.name.slice(1)
+
+            const specieToUpperCase = this.species[0].toUpperCase() + this.species.slice(1)
+
+            let pokemonInnerHTML = `
+                <div class = 'img-container'>
+                    <img src = "${this.img}"/>
+                </div>
+                
+                <div class = "info">
+                    <h2 class = "name">${pokemonNameToUpperCase}</h2>
+                    <h2 class = "name">${specieToUpperCase}</h2>
+                </div>
+            `
+
+            pokemonCard.innerHTML = pokemonInnerHTML
+
+            RickAndMorty.pokeContainer.appendChild(pokemonCard)
+        }
+}
+
+        const init = () => {
+
+            fetch('https://rickandmortyapi.com/api/character')
+            .then(resp => {
+                if(!resp.ok) throw new Error(resp.statusText)
+                return resp.json()
+            })
+            .then(data => {
+                data.results.map(character => {
+                    if(character.id<21) {
+                       return new RickAndMorty(character).show()
+                    }
+                })
+                }
+            )
+            .catch(err => {
+                console.log(err)
+            })
+        }
+        
+        init()
+
+    </script>
+</body>
+</html>
