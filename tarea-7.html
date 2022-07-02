@@ -24,7 +24,7 @@
             color: dimgrey;
         }
 
-        .poke-container {
+        .RickAndMorty-container {
             display: flex;
             flex-wrap: wrap;
             max-width: 1500px;
@@ -33,7 +33,7 @@
             align-items: center;
         }
 
-        .pokemon-card {
+        .RickAndMorty-card {
             background-color: #eee;
             border-radius: 15px;
             padding: 20px;
@@ -43,13 +43,13 @@
             min-width: 400px;
         }
 
-        .pokemon-card .img-container {
+        .RickAndMorty-card .img-container {
             height: 250px;
             width: 250px;
             margin: auto;
         }
 
-        .pokemon-card .img-container img {
+        .RickAndMorty-card .img-container img {
             margin-top: 20px;
             max-width: 80%;
             max-height: 80%;
@@ -57,7 +57,7 @@
             
         }
 
-        .pokemon-card .name {
+        .RickAndMorty-card .name {
             margin: 15px 0 7px;
             color: dimgrey;
         }
@@ -66,13 +66,13 @@
 <body>
 
     <h1>Fetching Rick & Morty from an API</h1>
-    <div id="poke_container" class="poke-container"></div>
+    <div id="RickAndMorty_container" class="RickAndMorty-container"></div>
 
     <script>
 
     class RickAndMorty {
 
-        static pokeContainer = document.getElementById('poke_container')
+        static RickAndMortyContainer = document.getElementById('RickAndMorty_container')
 
         _name;
         _species;
@@ -107,29 +107,29 @@
         }
 
         show(){
-            const pokemonCard = document.createElement('div')
-            pokemonCard.classList.add('pokemon-card')
+            const RickAndMortyCard = document.createElement('div')
+            RickAndMortyCard.classList.add('RickAndMorty-card')
 
-            pokemonCard.style.backgroundColor = '#defde0' 
+            RickAndMortyCard.style.backgroundColor = '#defde0' 
 
-            const pokemonNameToUpperCase = this.name[0].toUpperCase() + this.name.slice(1)
+            const RickAndMortyNameToUpperCase = this.name[0].toUpperCase() + this.name.slice(1)
 
             const specieToUpperCase = this.species[0].toUpperCase() + this.species.slice(1)
 
-            let pokemonInnerHTML = `
+            let RickAndMortyInnerHTML = `
                 <div class = 'img-container'>
                     <img src = "${this.img}"/>
                 </div>
                 
                 <div class = "info">
-                    <h2 class = "name">${pokemonNameToUpperCase}</h2>
+                    <h2 class = "name">${RickAndMortyNameToUpperCase}</h2>
                     <h2 class = "name">${specieToUpperCase}</h2>
                 </div>
             `
 
-            pokemonCard.innerHTML = pokemonInnerHTML
+            RickAndMortyCard.innerHTML = RickAndMortyInnerHTML
 
-            RickAndMorty.pokeContainer.appendChild(pokemonCard)
+            RickAndMorty.RickAndMortyContainer.appendChild(RickAndMortyCard)
         }
 }
 
