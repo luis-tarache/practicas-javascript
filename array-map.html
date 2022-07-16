@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let people = [
+            {name:'John', job:'Developer', age:'41'},
+            {name:'Jaclin', job:'Teacher', age:'31'},
+            {name:'Sunshine', job:'Coach', age:'28'},
+            {name:'Robert', job:'Author', age:'59'},
+            {name:'Randee', job:'Doctor', age:'36'}
+        ]
+
+        
+        const myArrName = people.map(person => person.name)
+        const myArrX = people.map(person => ({
+            name: person.name,
+            age: person.age
+        }))
+        const myArrAge = people.map(person => ({
+         birthday_year: 2022 - person.age   
+        }))
+        
+        console.log(myArrName)
+        console.log(myArrX)
+        console.log(myArrAge)
+        console.log(people)
+    </script>
+</body>
+</html>
